@@ -2,6 +2,9 @@
 from Sunfounder_PWM_Servo_Driver import PWM
 import time
 
+# global "class" variable
+pwm = None
+
 def setServoPulse(channel, pulse):
 	pulseLength = 1000000                   # 1,000,000 us per second
 	pulseLength /= 60                       # 60 Hz

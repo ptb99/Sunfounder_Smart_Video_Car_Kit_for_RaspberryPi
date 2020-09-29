@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import Sunfounder_PWM_Servo_Driver.Servo_init as pwm
 import time    # Import necessary modules
+import logging
 
 # ===========================================================================
 # Raspberry Pi pin11, 12, 13 and 15 to realize the clockwise/counterclockwise
@@ -34,6 +35,7 @@ def setSpeed(speed):
 	print 'speed is: ', speed
 	p.setPWM(EN_M0, 0, speed)
 	p.setPWM(EN_M1, 0, speed)
+        logging.info("motor setSpeed to %d", speed)
 
 def setup():
 	global forward0, forward1, backward1, backward0
@@ -86,10 +88,12 @@ def motor1(x):
 def forward():
 	motor0(forward0)
 	motor1(forward1)
+        logging.info("motor forward called (%s,%s)", forward0, forward1)
 
 def backward():
 	motor0(backward0)
 	motor1(backward1)
+        logging.info("motor backward called (%s,%s)", backward0, backward1)
 
 def forwardWithSpeed(spd = 50):
 	setSpeed(spd)

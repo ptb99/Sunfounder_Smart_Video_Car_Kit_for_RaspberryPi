@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 import Sunfounder_PWM_Servo_Driver.Servo_init as servo
 import time                  # Import necessary modules
+import logging
+
+# chan  0 = turn wheels - 350 to 430 to 510
+# chan 14 = camera pan  - 220 to 410 to 640
+# chan 15 = camera tilt - 260 to 320 to 550
+
 
 MinPulse = 200
 MaxPulse = 700
@@ -42,6 +48,7 @@ def move_decrease_x():
 	if Current_x > Xmax:
 		Current_x = Xmax
         pwm.setPWM(14, 0, Current_x)   # CH14 <---> X axis
+        logging.info("video decrease x to %d", Current_x)
 # ==========================================================================================
 # Control the servo connected to channel 14 of the servo control board to make the camera 
 # turning towards the negative direction of the x axis.
@@ -52,6 +59,7 @@ def move_increase_x():
 	if Current_x <= Xmin:
 		Current_x = Xmin
         pwm.setPWM(14, 0, Current_x)
+        logging.info("video increase x to %d", Current_x)
 # ==========================================================================================
 # Control the servo connected to channel 15 of the servo control board to make the camera 
 # turning towards the positive direction of the y axis. 
@@ -62,6 +70,7 @@ def move_increase_y():
 	if Current_y > Ymax:
 		Current_y = Ymax
         pwm.setPWM(15, 0, Current_y)   # CH15 <---> Y axis
+        logging.info("video increase y to %d", Current_y)
 # ==========================================================================================
 # Control the servo connected to channel 15 of the servo control board to make the camera 
 # turning towards the negative direction of the y axis. 
@@ -72,6 +81,7 @@ def move_decrease_y():
 	if Current_y <= Ymin:
 		Current_y = Ymin
         pwm.setPWM(15, 0, Current_y)
+        logging.info("video decrease y to %d", Current_y)
 # ==========================================================================================		
 # Control the servos connected with channel 14 and 15 at the same time to make the camera 
 # move forward.
@@ -83,6 +93,7 @@ def home_x_y():
 	Current_x = home_x
 	pwm.setPWM(14, 0, Current_x)
 	pwm.setPWM(15, 0, Current_y)
+        logging.info("video home to %d, %d", Current_x, Current_y)
 
 def calibrate(x,y):
 	pwm.setPWM(14, 0, (MaxPulse+MinPulse)/2+x)

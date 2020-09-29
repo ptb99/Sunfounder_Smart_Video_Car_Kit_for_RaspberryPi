@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import Sunfounder_PWM_Servo_Driver.Servo_init as servo
 import time                # Import necessary modules
+import logging
 
 FILE_CONFIG = "/home/pi/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/server/config"
 
@@ -31,6 +32,7 @@ def setup():
 def turn_left():
 	global leftPWM
 	pwm.setPWM(0, 0, leftPWM)  # CH0
+        logging.info("turning left to %d", leftPWM)
 
 # ==========================================================================================
 # Make the car turn right.
@@ -38,6 +40,7 @@ def turn_left():
 def turn_right():
 	global rightPWM
 	pwm.setPWM(0, 0, rightPWM)
+        logging.info("turning right to %d", rightPWM)
 
 # ==========================================================================================
 # Make the car turn back.
@@ -46,10 +49,12 @@ def turn_right():
 def turn(angle):
 	angle = Map(angle, 0, 255, leftPWM, rightPWM)
 	pwm.setPWM(0, 0, angle)
+        logging.info("turn called to %d", angle)
 
 def home():
 	global homePWM
 	pwm.setPWM(0, 0, homePWM)
+        logging.info("home called to %d", homePWM)
 
 def calibrate(x):
 	pwm.setPWM(0, 0, 450+x)
